@@ -3,14 +3,18 @@ const express = require("express");
 // const connectDB = require("./config/connectDB");
 const mongoose = require("mongoose");
 const Task = require("./model/taskModel");
-const taskRoute = require("./routes/taskRoute")
+const taskRoute = require("./routes/taskRoute");
+const cors = require("cors");
 
 const app = express();
 
 // middleware example
 app.use(express.json());
-app.use(express.urlencoded({extended: false}))
-app.use(taskRoute)
+app.use(express.urlencoded({extended: false}));
+app.use (cors({
+    origin:["http://localhost:3000", "https://mern-task-app.onrender.com"],
+}));
+app.use("/api/tasks",taskRoute);
 
 // const logger = (req, res, next) => {
 //     console.log("Middleware ran");
